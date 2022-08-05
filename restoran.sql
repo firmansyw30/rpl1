@@ -42,11 +42,16 @@ DROP TABLE IF EXISTS `meja`;
 CREATE TABLE `meja` (
   `no_meja` int(11) NOT NULL,
   `maks_pelanggan` int(11) DEFAULT NULL,
-  `status` tinyint(1) DEFAULT NULL,
+  `status` enum('tidak tersedia','tersedia','direservasi') DEFAULT NULL,
   PRIMARY KEY (`no_meja`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `meja` */
+
+insert  into `meja`(`no_meja`,`maks_pelanggan`,`status`) values 
+(1,8,'tersedia'),
+(2,8,'tidak tersedia'),
+(3,8,'direservasi');
 
 /*Table structure for table `menu` */
 
@@ -57,7 +62,7 @@ CREATE TABLE `menu` (
   `nama_menu` varchar(30) DEFAULT NULL,
   `kode_bahan` varchar(15) DEFAULT NULL,
   `harga_satuan` int(11) DEFAULT NULL,
-  `gambar` blob DEFAULT NULL,
+  `gambar` varchar(255) DEFAULT NULL,
   `kategori` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`kode_menu`),
   KEY `kode_bahan` (`kode_bahan`),
@@ -65,6 +70,10 @@ CREATE TABLE `menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `menu` */
+
+insert  into `menu`(`kode_menu`,`nama_menu`,`kode_bahan`,`harga_satuan`,`gambar`,`kategori`) values 
+('RT-01','Roti Bakar','RT-01',20000,'roti bakar.jpg','makanan'),
+('SM-01','Sambal Matah','CB-01',15000,'sambal mata.jpg','makanan');
 
 /*Table structure for table `pegawai` */
 
@@ -85,6 +94,14 @@ CREATE TABLE `pegawai` (
 
 /*Data for the table `pegawai` */
 
+insert  into `pegawai`(`kode_pegawai`,`nama_pegawai`,`jabatan`,`ttl`,`alamat`,`no_telpon`,`username`,`password`,`status`) values 
+('PG-001','Asep','Koki','2022-08-03','cibodas','056787654567','asepganteng','asepganteng','aktif'),
+('PG-002','Cecep','Kasir','2022-08-22','cihideung','04567876545678','cecepganteng','cecepganteng','aktif'),
+('PG-003','Bambang','Pelayan','2022-08-14','cimaung','052895678678','bambangganteng','bambangganteng','aktif'),
+('PG-ADM-01','adminkoki','Koki','2022-08-04','jelas','056789876578','adminkoki','adminkoki','aktif'),
+('PG-ADM-02','adminpelayan','Pelayan','2022-08-04','jelaspisan','0415267839487','adminpelayan','adminpelayan','aktif'),
+('PG-ADM-03','adminkasir','Kasir','2022-08-04','jelasbgt','0762874628621','adminkasir','adminkasir','aktif');
+
 /*Table structure for table `pelanggan` */
 
 DROP TABLE IF EXISTS `pelanggan`;
@@ -98,6 +115,10 @@ CREATE TABLE `pelanggan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `pelanggan` */
+
+insert  into `pelanggan`(`kode_pelanggan`,`nama_pelanggan`,`no_telpon`,`jumlah_pelanggan`) values 
+('SUC-0','Sucipto','05678765678',4),
+('SUN-0','Sunarto','09876567889',2);
 
 /*Table structure for table `pesanan` */
 
@@ -122,6 +143,10 @@ CREATE TABLE `pesanan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `pesanan` */
+
+insert  into `pesanan`(`kode_pesanan`,`pesanan`,`jumlah_pesanan`,`total_harga`,`status`,`no_meja`,`kode_pelanggan`,`kode_menu`) values 
+('',NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+('SUC-PES-01','Roti Bakar',2,40000,'Sedang Dibuat',1,'SUC-0','RT-01');
 
 /*Table structure for table `struk_pembayaran` */
 
